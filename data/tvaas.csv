@@ -1,0 +1,146 @@
+District Number,District Name,District-Wide: Composite,District-Wide: Literacy,District-Wide: Numeracy
+10,Anderson County,1.0,1.0,3.0
+11,Clinton City,5.0,5.0,5.0
+12,Oak Ridge City,1.0,3.0,1.0
+20,Bedford County,3.0,5.0,2.0
+30,Benton County,3.0,3.0,5.0
+40,Bledsoe County,1.0,1.0,1.0
+50,Blount County,1.0,1.0,1.0
+51,Alcoa City,2.0,4.0,3.0
+52,Maryville City,5.0,5.0,5.0
+60,Bradley County,5.0,5.0,5.0
+61,Cleveland City,5.0,5.0,5.0
+70,Campbell County,1.0,1.0,1.0
+80,Cannon County,1.0,1.0,1.0
+92,Hollow Rock-Bruceton,3.0,3.0,2.0
+93,Huntingdon Special School District,5.0,5.0,5.0
+94,McKenzie Special School District,3.0,3.0,3.0
+95,South Carroll Special School District,5.0,3.0,5.0
+97,West Carroll Special School District,3.0,1.0,5.0
+100,Carter County,5.0,5.0,5.0
+101,Elizabethton City,5.0,3.0,4.0
+110,Cheatham County,2.0,2.0,5.0
+120,Chester County,5.0,4.0,5.0
+130,Claiborne County,1.0,1.0,1.0
+140,Clay County,3.0,2.0,3.0
+150,Cocke County,1.0,1.0,1.0
+151,Newport City,1.0,3.0,1.0
+160,Coffee County,5.0,4.0,5.0
+161,Manchester City,1.0,5.0,1.0
+162,Tullahoma City,2.0,3.0,3.0
+170,Crockett County,3.0,2.0,3.0
+171,Alamo City,5.0,4.0,3.0
+172,Bells City,5.0,5.0,2.0
+180,Cumberland County,3.0,3.0,3.0
+190,Davidson County,5.0,5.0,1.0
+200,Decatur County,1.0,1.0,2.0
+210,DeKalb County,4.0,4.0,3.0
+220,Dickson County,1.0,1.0,1.0
+230,Dyer County,5.0,5.0,5.0
+231,Dyersburg City,5.0,5.0,5.0
+240,Fayette County,5.0,5.0,2.0
+250,Fentress County,5.0,3.0,5.0
+260,Franklin County,2.0,2.0,1.0
+271,Humboldt City,1.0,2.0,1.0
+272,Milan Special School District,5.0,5.0,5.0
+273,Trenton Special School District,5.0,5.0,5.0
+274,Bradford Special School District,5.0,5.0,5.0
+275,Gibson County Special School District,2.0,3.0,5.0
+280,Giles County,3.0,2.0,3.0
+290,Grainger County,3.0,3.0,1.0
+300,Greene County,1.0,4.0,1.0
+301,Greeneville City,5.0,5.0,5.0
+310,Grundy County,1.0,1.0,1.0
+320,Hamblen County,5.0,4.0,5.0
+330,Hamilton County,1.0,1.0,1.0
+340,Hancock County,1.0,1.0,1.0
+350,Hardeman County,1.0,1.0,1.0
+360,Hardin County,1.0,2.0,1.0
+370,Hawkins County,1.0,1.0,1.0
+371,Rogersville City,3.0,4.0,4.0
+380,Haywood County,1.0,1.0,1.0
+390,Henderson County,5.0,5.0,5.0
+391,Lexington City,1.0,1.0,2.0
+400,Henry County,3.0,1.0,3.0
+401,Paris Special School District,4.0,2.0,3.0
+410,Hickman County,2.0,3.0,1.0
+420,Houston County,3.0,1.0,4.0
+430,Humphreys County,1.0,1.0,1.0
+440,Jackson County,1.0,2.0,1.0
+450,Jefferson County,5.0,5.0,5.0
+460,Johnson County,1.0,1.0,1.0
+470,Knox County,5.0,5.0,5.0
+480,Lake County,1.0,1.0,1.0
+490,Lauderdale County,5.0,4.0,5.0
+500,Lawrence County,4.0,2.0,5.0
+510,Lewis County,1.0,1.0,1.0
+520,Lincoln County,5.0,5.0,5.0
+521,Fayetteville City,3.0,4.0,3.0
+530,Loudon County,3.0,4.0,3.0
+531,Lenoir City,3.0,2.0,5.0
+540,McMinn County,4.0,5.0,1.0
+541,Athens City,5.0,5.0,5.0
+542,Etowah City,1.0,2.0,1.0
+550,McNairy County,5.0,3.0,5.0
+560,Macon County,5.0,5.0,4.0
+570,Jackson-Madison County,1.0,2.0,1.0
+580,Marion County,1.0,1.0,3.0
+581,Richard City,3.0,3.0,3.0
+590,Marshall County,5.0,5.0,5.0
+600,Maury County,1.0,3.0,3.0
+610,Meigs County,3.0,4.0,3.0
+620,Monroe County,1.0,2.0,3.0
+621,Sweetwater City,3.0,3.0,5.0
+630,Montgomery County,5.0,5.0,5.0
+640,Moore County,5.0,5.0,3.0
+650,Morgan County,1.0,1.0,1.0
+660,Obion County,1.0,2.0,2.0
+661,Union City,5.0,5.0,5.0
+670,Overton County,1.0,1.0,1.0
+680,Perry County,3.0,3.0,3.0
+690,Pickett County,1.0,1.0,1.0
+700,Polk County,3.0,2.0,3.0
+710,Putnam County,1.0,1.0,1.0
+720,Rhea County,3.0,3.0,3.0
+721,Dayton City,1.0,2.0,1.0
+730,Roane County,1.0,1.0,1.0
+740,Robertson County,3.0,5.0,3.0
+750,Rutherford County,5.0,1.0,1.0
+751,Murfreesboro City,1.0,1.0,1.0
+760,Scott County,1.0,1.0,1.0
+761,Oneida Special School District,4.0,3.0,5.0
+770,Sequatchie County,1.0,1.0,1.0
+780,Sevier County,1.0,1.0,1.0
+792,Shelby County Unified,5.0,5.0,5.0
+793,Arlington City,5.0,5.0,5.0
+794,Bartlett City,5.0,5.0,4.0
+795,Collierville City,5.0,5.0,5.0
+796,Germantown City,3.0,5.0,3.0
+797,Lakeland City,5.0,5.0,5.0
+798,Millington City,3.0,3.0,3.0
+800,Smith County,1.0,1.0,1.0
+810,Stewart County,3.0,5.0,3.0
+820,Sullivan County,1.0,1.0,1.0
+821,Bristol City,3.0,5.0,3.0
+822,Kingsport City,3.0,3.0,1.0
+830,Sumner County,5.0,5.0,5.0
+840,Tipton County,5.0,5.0,5.0
+850,Trousdale County,3.0,1.0,2.0
+860,Unicoi County,1.0,1.0,1.0
+870,Union County,5.0,3.0,5.0
+880,Van Buren County,4.0,3.0,5.0
+890,Warren County,3.0,2.0,5.0
+900,Washington County,1.0,1.0,1.0
+901,Johnson City,5.0,5.0,5.0
+910,Wayne County,1.0,1.0,1.0
+920,Weakley County,1.0,2.0,1.0
+930,White County,2.0,1.0,4.0
+940,Williamson County,2.0,3.0,1.0
+941,Franklin Special School District,3.0,5.0,3.0
+950,Wilson County,5.0,5.0,5.0
+951,Lebanon Special School District,5.0,5.0,1.0
+961,Alvin C. York Institute,5.0,5.0,5.0
+963,Tenn School For Blind,3.0,3.0,3.0
+964,Tenn Sch For Deaf,1.0,1.0,NA
+970,Department of Children's Services Ed. Division,1.0,1.0,1.0
+985,Achievement School District,1.0,2.0,2.0
