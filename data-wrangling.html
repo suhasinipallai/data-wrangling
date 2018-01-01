@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="  Alexander Poon   alex.poon@tn.gov" />
-  <meta name="dcterms.date" content="2017-12-31" />
+  <meta name="dcterms.date" content="2018-01-01" />
   <title>Data Wrangling</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -495,7 +495,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <section>
     <h1 class="title">Data Wrangling</h1>
     <h2 class="author"><br> Alexander Poon <br> <a href="mailto:alex.poon@tn.gov">alex.poon@tn.gov</a></h2>
-    <h3 class="date">December 31, 2017</h3>
+    <h3 class="date">January 01, 2018</h3>
 </section>
 
 <section id="table-of-contents" class="slide level2">
@@ -833,8 +833,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section>
 <section id="keepingdropping-observations-2" class="slide level2">
 <h2>Keeping/dropping observations</h2>
-<p>Drop observations with <code>filter()</code> using <code>!</code> before a logical condition:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(ach_profile, <span class="op">!</span>system_name <span class="op">==</span><span class="st"> &quot;State of Tennessee&quot;</span>)</code></pre></div>
+<p>Drop observations with <code>filter()</code> by negating a logical condition:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(ach_profile, system_name <span class="op">!=</span><span class="st"> &quot;State of Tennessee&quot;</span>)</code></pre></div>
 <pre><code>## # A tibble: 145 x 28
 ##    system     system_name  AlgI AlgII  BioI Chemistry   ELA
 ##     &lt;int&gt;           &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
@@ -1147,7 +1147,7 @@ ach_profile4 &lt;-<span class="st"> </span><span class="kw">mutate</span>(ach_pr
 <h2>Renaming variables</h2>
 <p>Variable names can contain spaces and other characters. Put backticks (``) around a name if it contains spaces.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rename</span>(ach_profile, <span class="dt">District =</span> system, 
-       <span class="st">`</span><span class="dt">District Name</span><span class="st">`</span> =<span class="st"> </span>system_name)</code></pre></div>
+    <span class="st">`</span><span class="dt">District Name</span><span class="st">`</span> =<span class="st"> </span>system_name)</code></pre></div>
 <div class="fragment">
 <pre><code>## # A tibble: 146 x 28
 ##    District    `District Name`  AlgI AlgII  BioI Chemistry   ELA
@@ -1908,7 +1908,7 @@ districts &lt;-<span class="st"> </span><span class="kw">filter</span>(ach_profi
 </section>
 <section id="reshaping-data-frames-2" class="slide level2">
 <h2>Reshaping data frames</h2>
-<p>This is going to create a new variable with <code>&quot;AlgI&quot;</code>, <code>&quot;AlgII&quot;</code>, … , <code>&quot;Dropout&quot;</code>, and a new variable with the appropriate value for each district.</p>
+<p>This is going to create a new variable with <code>&quot;AlgI&quot;</code>, <code>&quot;AlgII&quot;</code>, …, <code>&quot;Dropout&quot;</code>, and a new variable with the appropriate value for each district.</p>
 <pre><code>## # A tibble: 3,650 x 4
 ##    system        system_name outcome value
 ##     &lt;int&gt;              &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;

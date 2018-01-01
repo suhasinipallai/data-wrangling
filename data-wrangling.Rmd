@@ -221,10 +221,10 @@ filter(ach_profile, system_name == "State of Tennessee")
 
 ## Keeping/dropping observations
 
-Drop observations with `filter()` using `!` before a logical condition:
+Drop observations with `filter()` by negating a logical condition:
 
 ``` {r}
-filter(ach_profile, !system_name == "State of Tennessee")
+filter(ach_profile, system_name != "State of Tennessee")
 ```
 
 ## Exercise 1
@@ -1215,7 +1215,7 @@ Suppose I want to reshape this data frame long by subject/characteristic.
 
 ## Reshaping data frames
 
-This is going to create a new variable with `"AlgI"`, `"AlgII"`, ... , `"Dropout"`, and a new variable with the appropriate value for each district.
+This is going to create a new variable with `"AlgI"`, `"AlgII"`, ..., `"Dropout"`, and a new variable with the appropriate value for each district.
 
 ``` {r, echo = FALSE}
 ach_profile %>%
