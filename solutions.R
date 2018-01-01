@@ -1,6 +1,4 @@
-library(readr)
-library(tidyr)
-library(dplyr)
+library(tidyverse)
 
 ach_profile <- read_csv("data/achievement_profile_data_with_CORE.csv")
 
@@ -16,10 +14,9 @@ filter(ach_profile, AlgI == 100)
 #     * `"Low"` if a district's Math proficiency is below 50%.
 
 mutate(ach_profile,
-       math_achievement = ifelse(Math >= 75, "High", NA),
-       math_achievement = ifelse(Math >= 50 & Math < 75, "Medium",
-                                 math_achievement),
-       math_achievement = ifelse(Math < 50, "Low", math_achievement))
+    math_achievement = if_else(Math >= 75, "High", NA_character_),
+    math_achievement = if_else(Math >= 50 & Math < 75, "Medium", math_achievement),
+    math_achievement = if_else(Math < 50, "Low", math_achievement))
 
 ## Exercise 3
 # Filter down to district 792 (Shelby County), then pipe the result to `View()`.
@@ -40,9 +37,9 @@ ach_profile %>%
 
 tvaas <- read_csv("data/tvaas.csv") %>%
     rename(system = `District Number`,
-           `TVAAS Composite` = `District-Wide: Composite`,
-           `TVAAS Literacy` = `District-Wide: Literacy`,
-           `TVAAS Numeracy` = `District-Wide: Numeracy`) %>%
+        `TVAAS Composite` = `District-Wide: Composite`,
+        `TVAAS Literacy` = `District-Wide: Literacy`,
+        `TVAAS Numeracy` = `District-Wide: Numeracy`) %>%
     select(-`District Name`)
 
 ## Exercise 5
@@ -60,8 +57,8 @@ ach_profile %>%
 ach_profile %>%
     filter(system_name != "State of Tennessee") %>%
     summarise(mean_grad = mean(Graduation, na.rm = TRUE),
-              min_grad = min(Graduation, na.rm = TRUE),
-              max_grad = max(Graduation, na.rm = TRUE))
+        min_grad = min(Graduation, na.rm = TRUE),
+        max_grad = max(Graduation, na.rm = TRUE))
 
 ## Exercise 7
 # Identify districts with a higher Percent ED than the median district, and a
@@ -70,7 +67,7 @@ ach_profile %>%
 ach_profile %>%
     filter(system_name != "State of Tennessee") %>%
     mutate(median_pct_ED = median(Pct_ED, na.rm = TRUE),
-           median_Math = median(Math, na.rm = TRUE)) %>%
+        median_Math = median(Math, na.rm = TRUE)) %>%
     filter(Pct_ED > median_pct_ED & Math > median_Math) %>%
     select(system, system_name, Math, median_Math)
 
@@ -98,10 +95,10 @@ ach_profile %>%
 ach_profile %>%
     rowwise() %>%
     mutate(Math_avg = mean(c(Math, AlgI, AlgII), na.rm = TRUE),
-           Eng_avg = mean(c(ELA, EngI, EngII, EngIII), na.rm = TRUE),
-           Sci_avg = mean(c(Science, BioI, Chemistry), na.rm = TRUE)) %>%
+        Eng_avg = mean(c(ELA, EngI, EngII, EngIII), na.rm = TRUE),
+        Sci_avg = mean(c(Science, BioI, Chemistry), na.rm = TRUE)) %>%
     select(system, system_name, Math, AlgI, AlgII, Math_avg,
-           ELA, EngI, EngII, EngIII, Eng_avg, Science, BioI, Chemistry, Sci_avg)
+        ELA, EngI, EngII, EngIII, Eng_avg, Science, BioI, Chemistry, Sci_avg)
 
 ## Exercise 10
 # Create a data frame with the number of districts at each TVAAS level, by CORE region.
@@ -109,17 +106,34 @@ ach_profile %>%
 ach_profile %>%
     inner_join(tvaas, by = "system") %>%
     mutate(Level1 = ifelse(`TVAAS Composite` == 1, 1, 0),
-           Level2 = ifelse(`TVAAS Composite` == 2, 1, 0),
-           Level3 = ifelse(`TVAAS Composite` == 3, 1, 0),
-           Level4 = ifelse(`TVAAS Composite` == 4, 1, 0),
-           Level5 = ifelse(`TVAAS Composite` == 5, 1, 0)) %>%
+        Level2 = ifelse(`TVAAS Composite` == 2, 1, 0),
+        Level3 = ifelse(`TVAAS Composite` == 3, 1, 0),
+        Level4 = ifelse(`TVAAS Composite` == 4, 1, 0),
+        Level5 = ifelse(`TVAAS Composite` == 5, 1, 0)) %>%
     group_by(CORE_region) %>%
     summarise(Level1 = sum(Level1, na.rm = TRUE),
-              Level2 = sum(Level2, na.rm = TRUE),
-              Level3 = sum(Level3, na.rm = TRUE),
-              Level4 = sum(Level4, na.rm = TRUE),
-              Level5 = sum(Level5, na.rm = TRUE)) %>%
+        Level2 = sum(Level2, na.rm = TRUE),
+        Level3 = sum(Level3, na.rm = TRUE),
+        Level4 = sum(Level4, na.rm = TRUE),
+        Level5 = sum(Level5, na.rm = TRUE)) %>%
     ungroup()
+
+# More succinctly:
+
+ach_profile %>%
+    inner_join(tvaas, by = "system") %>%
+    group_by(CORE_region, `TVAAS Composite`) %>%
+    count() %>%
+    ungroup()
+
+# If you want it wide by TVAAS level as before
+
+ach_profile %>%
+    inner_join(tvaas, by = "system") %>%
+    group_by(CORE_region, `TVAAS Composite`) %>%
+    count() %>%
+    ungroup() %>%
+    spread(`TVAAS Composite`, n)
 
 ## Exercise 11
 # Reshape the tvaas data frame long by subject.
