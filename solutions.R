@@ -105,11 +105,11 @@ ach_profile %>%
 
 ach_profile %>%
     inner_join(tvaas, by = "system") %>%
-    mutate(Level1 = ifelse(`TVAAS Composite` == 1, 1, 0),
-        Level2 = ifelse(`TVAAS Composite` == 2, 1, 0),
-        Level3 = ifelse(`TVAAS Composite` == 3, 1, 0),
-        Level4 = ifelse(`TVAAS Composite` == 4, 1, 0),
-        Level5 = ifelse(`TVAAS Composite` == 5, 1, 0)) %>%
+    mutate(Level1 = if_else(`TVAAS Composite` == 1, 1, 0),
+        Level2 = if_else(`TVAAS Composite` == 2, 1, 0),
+        Level3 = if_else(`TVAAS Composite` == 3, 1, 0),
+        Level4 = if_else(`TVAAS Composite` == 4, 1, 0),
+        Level5 = if_else(`TVAAS Composite` == 5, 1, 0)) %>%
     group_by(CORE_region) %>%
     summarise(Level1 = sum(Level1, na.rm = TRUE),
         Level2 = sum(Level2, na.rm = TRUE),
