@@ -380,7 +380,7 @@ With many conditions, it's better to use `case_when` than several `if_else` stat
 mutate(ach_profile,
     district_size = case_when(
         Enrollment >= 10000 ~ "Large",
-        Enrollment >= 5000 & Enrollment < 10000 ~ "Medium",
+        Enrollment >= 5000 ~ "Medium",
         Enrollment < 5000 ~ "Small"
     )
 )
@@ -389,6 +389,22 @@ mutate(ach_profile,
 . . .
 
 The argument to `case_when()` is a sequence of two-sided formulas, where the left side of each formula is a logical condition, and the right side is the value of a variable if the logical condition is `TRUE`.
+
+## `case_when()` with `mutate()`
+
+With many conditions, it's better to use `case_when` than several `if_else` statements:
+
+```{r, eval = FALSE}
+mutate(ach_profile,
+    district_size = case_when(
+        Enrollment >= 10000 ~ "Large",
+        Enrollment >= 5000 ~ "Medium",
+        Enrollment < 5000 ~ "Small"
+    )
+)
+```
+
+Each logical condition in `case_when()` is evaluated as IF (condition) AND NOT (any previous condition), so consider this when specifying/ordering your formulas.
 
 ## Exercise 2
 
@@ -424,7 +440,7 @@ Create a new variable called `math_achievement` with a value of:
 mutate(ach_profile, 
     math_achievement = case_when(
         Math >= 75 ~ "High",
-        Math >= 50 & Math < 75 ~ "Medium",
+        Math >= 50 ~ "Medium",
         Math < 50 ~ "Low"
     )
 )
@@ -439,10 +455,10 @@ Create a new variable called `math_achievement` with a value of:
 * `"Low"` if a district's Math proficiency is below 50%.
 
 ``` {r, echo = FALSE}
-mutate(ach_profile,
-    math_achievement = if_else(Math >= 75, "High", NA_character_),
-    math_achievement = if_else(Math >= 50 & Math < 75, "Medium", math_achievement),
-    math_achievement = if_else(Math < 50, "Low", math_achievement)
+mutate(ach_profile, math_achievement = case_when(
+    Math >= 75 ~ "High",
+    Math >= 50 ~ "Medium",
+    Math < 50 ~ "Low")
 ) %>%
 select(system_name, Math, math_achievement)
 ```
@@ -473,7 +489,7 @@ ach_profile4 <- mutate(ach_profile3, Enrollment = log10(Enrollment))
 
 ## The pipe operator (`%>%`)
 
-The pipe operator (`%>%`) provides a better alternative. It passes the result of one function as the first argument to another function.
+The pipe operator (`%>%`) provides a better alternative. It passes the result of one function as an argument to another function (the first argument, by default).
 
 . . .
 
@@ -1011,11 +1027,11 @@ A numeric id variable is generally better than a name as a key, because names mi
 
 There are five types of joins:
 
-> * `inner_join()` keeps only merged observations.
-> * `left_join()` drops unmerged observations in the second data frame.
-> * `right_join()` drops unmerged observations in the first data frame.
+> * `inner_join()` keeps only matched observations.
+> * `left_join()` drops unmatched observations in the second data frame.
+> * `right_join()` drops unmatched observations in the first data frame.
 > * `full_join()` keeps all observations.
-> * `anti_join()` keeps only unmerged observations in the first data frame.
+> * `anti_join()` keeps only unmatched observations in the first data frame.
 
 . . .
 
@@ -1029,11 +1045,11 @@ Q: What happens if we `inner_join()` the `ach_profile` and `tvaas` data frames?
 
 There are five types of joins:
 
-* `inner_join()` keeps only merged observations.
-* `left_join()` drops unmerged observations in the second data frame.
-* `right_join()` drops unmerged observations in the first data frame.
+* `inner_join()` keeps only matched observations.
+* `left_join()` drops unmatched observations in the second data frame.
+* `right_join()` drops unmatched observations in the first data frame.
 * `full_join()` keeps all observations.
-* `anti_join()` keeps only unmerged observations in the first data frame.
+* `anti_join()` keeps only unmatched observations in the first data frame.
 
 `ach_profile` has achievement and profile data for all districts and the state. `tvaas` has TVAAS data for all districts.
 
@@ -1043,11 +1059,11 @@ Q: What happens if we `left_join()` the `ach_profile` and `tvaas` data frames?
 
 There are five types of joins:
 
-* `inner_join()` keeps only merged observations.
-* `left_join()` drops unmerged observations in the second data frame.
-* `right_join()` drops unmerged observations in the first data frame.
+* `inner_join()` keeps only matched observations.
+* `left_join()` drops unmatched observations in the second data frame.
+* `right_join()` drops unmatched observations in the first data frame.
 * `full_join()` keeps all observations.
-* `anti_join()` keeps only unmerged observations in the first data frame.
+* `anti_join()` keeps only unmatched observations in the first data frame.
 
 `ach_profile` has achievement and profile data for all districts and the state. `tvaas` has TVAAS data for all districts.
 
@@ -1057,11 +1073,11 @@ Q: What happens if we `right_join()` the `ach_profile` and `tvaas` data frames?
 
 There are five types of joins:
 
-* `inner_join()` keeps only merged observations.
-* `left_join()` drops unmerged observations in the second data frame.
-* `right_join()` drops unmerged observations in the first data frame.
+* `inner_join()` keeps only matched observations.
+* `left_join()` drops unmatched observations in the second data frame.
+* `right_join()` drops unmatched observations in the first data frame.
 * `full_join()` keeps all observations.
-* `anti_join()` keeps only unmerged observations in the first data frame.
+* `anti_join()` keeps only unmatched observations in the first data frame.
 
 `ach_profile` has achievement and profile data for all districts and the state. `tvaas` has TVAAS data for all districts.
 
@@ -1071,11 +1087,11 @@ Q: What happens if we `full_join()` the `ach_profile` and `tvaas` data frames?
 
 There are five types of joins:
 
-* `inner_join()` keeps only merged observations.
-* `left_join()` drops unmerged observations in the second data frame.
-* `right_join()` drops unmerged observations in the first data frame.
+* `inner_join()` keeps only matched observations.
+* `left_join()` drops unmatched observations in the second data frame.
+* `right_join()` drops unmatched observations in the first data frame.
 * `full_join()` keeps all observations.
-* `anti_join()` keeps only unmerged observations in the first data frame.
+* `anti_join()` keeps only unmatched observations in the first data frame.
 
 `ach_profile` has achievement and profile data for all districts and the state. `tvaas` has TVAAS data for all districts.
 
@@ -1106,6 +1122,16 @@ When joining on multiple key variables, specify them as a character vector:
 ``` {r, eval = FALSE}
 full_join(df1, df2, by = c("key_var1", "key_var2"))
 ```
+
+## Combining data frames
+
+Key variable names don't have to match between the two data frame:
+
+``` {r, eval = FALSE}
+full_join(df1, df2, by = c("x1" = "x2", "y1" = "y2", "z1" = "z2"))
+```
+
+This will join `df1` and `df2` by matching values of `x1` in `df1` with values of `x2` in `df2`, `y1` with `y2`, and `z1` with `z2`.
 
 ## Exercise 10
 

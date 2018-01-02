@@ -999,13 +999,25 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(ach_profile,
     <span class="dt">district_size =</span> <span class="kw">case_when</span>(
         Enrollment <span class="op">&gt;=</span><span class="st"> </span><span class="dv">10000</span> <span class="op">~</span><span class="st"> &quot;Large&quot;</span>,
-        Enrollment <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5000</span> <span class="op">&amp;</span><span class="st"> </span>Enrollment <span class="op">&lt;</span><span class="st"> </span><span class="dv">10000</span> <span class="op">~</span><span class="st"> &quot;Medium&quot;</span>,
+        Enrollment <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5000</span> <span class="op">~</span><span class="st"> &quot;Medium&quot;</span>,
         Enrollment <span class="op">&lt;</span><span class="st"> </span><span class="dv">5000</span> <span class="op">~</span><span class="st"> &quot;Small&quot;</span>
     )
 )</code></pre></div>
 <div class="fragment">
 <p>The argument to <code>case_when()</code> is a sequence of two-sided formulas, where the left side of each formula is a logical condition, and the right side is the value of a variable if the logical condition is <code>TRUE</code>.</p>
 </div>
+</section>
+<section id="case_when-with-mutate-1" class="slide level2">
+<h2><code>case_when()</code> with <code>mutate()</code></h2>
+<p>With many conditions, it’s better to use <code>case_when</code> than several <code>if_else</code> statements:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(ach_profile,
+    <span class="dt">district_size =</span> <span class="kw">case_when</span>(
+        Enrollment <span class="op">&gt;=</span><span class="st"> </span><span class="dv">10000</span> <span class="op">~</span><span class="st"> &quot;Large&quot;</span>,
+        Enrollment <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5000</span> <span class="op">~</span><span class="st"> &quot;Medium&quot;</span>,
+        Enrollment <span class="op">&lt;</span><span class="st"> </span><span class="dv">5000</span> <span class="op">~</span><span class="st"> &quot;Small&quot;</span>
+    )
+)</code></pre></div>
+<p>Each logical condition in <code>case_when()</code> is evaluated as IF (condition) AND NOT (any previous condition), so consider this when specifying/ordering your formulas.</p>
 </section>
 <section id="exercise-2" class="slide level2">
 <h2>Exercise 2</h2>
@@ -1036,7 +1048,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(ach_profile, 
     <span class="dt">math_achievement =</span> <span class="kw">case_when</span>(
         Math <span class="op">&gt;=</span><span class="st"> </span><span class="dv">75</span> <span class="op">~</span><span class="st"> &quot;High&quot;</span>,
-        Math <span class="op">&gt;=</span><span class="st"> </span><span class="dv">50</span> <span class="op">&amp;</span><span class="st"> </span>Math <span class="op">&lt;</span><span class="st"> </span><span class="dv">75</span> <span class="op">~</span><span class="st"> &quot;Medium&quot;</span>,
+        Math <span class="op">&gt;=</span><span class="st"> </span><span class="dv">50</span> <span class="op">~</span><span class="st"> &quot;Medium&quot;</span>,
         Math <span class="op">&lt;</span><span class="st"> </span><span class="dv">50</span> <span class="op">~</span><span class="st"> &quot;Low&quot;</span>
     )
 )</code></pre></div>
@@ -1083,7 +1095,7 @@ ach_profile4 &lt;-<span class="st"> </span><span class="kw">mutate</span>(ach_pr
 </section>
 <section id="the-pipe-operator-1" class="slide level2">
 <h2>The pipe operator (<code>%&gt;%</code>)</h2>
-<p>The pipe operator (<code>%&gt;%</code>) provides a better alternative. It passes the result of one function as the first argument to another function.</p>
+<p>The pipe operator (<code>%&gt;%</code>) provides a better alternative. It passes the result of one function as an argument to another function (the first argument, by default).</p>
 <div class="fragment">
 <p>The first argument of all <code>dplyr</code> and <code>tidyr</code> functions is the data frame you want to manipulate, so piping makes for more readable code:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ach_profile <span class="op">%&gt;%</span>
@@ -1716,11 +1728,11 @@ districts &lt;-<span class="st"> </span><span class="kw">filter</span>(ach_profi
 <h2>Combining data frames</h2>
 <p>There are five types of joins:</p>
 <ul>
-<li class="fragment"><code>inner_join()</code> keeps only merged observations.</li>
-<li class="fragment"><code>left_join()</code> drops unmerged observations in the second data frame.</li>
-<li class="fragment"><code>right_join()</code> drops unmerged observations in the first data frame.</li>
+<li class="fragment"><code>inner_join()</code> keeps only matched observations.</li>
+<li class="fragment"><code>left_join()</code> drops unmatched observations in the second data frame.</li>
+<li class="fragment"><code>right_join()</code> drops unmatched observations in the first data frame.</li>
 <li class="fragment"><code>full_join()</code> keeps all observations.</li>
-<li class="fragment"><code>anti_join()</code> keeps only unmerged observations in the first data frame.</li>
+<li class="fragment"><code>anti_join()</code> keeps only unmatched observations in the first data frame.</li>
 </ul>
 <div class="fragment">
 <p><code>ach_profile</code> has achievement and profile data for all districts and the state. <code>tvaas</code> has TVAAS data for all districts.</p>
@@ -1733,11 +1745,11 @@ districts &lt;-<span class="st"> </span><span class="kw">filter</span>(ach_profi
 <h2>Combining data frames</h2>
 <p>There are five types of joins:</p>
 <ul>
-<li><code>inner_join()</code> keeps only merged observations.</li>
-<li><code>left_join()</code> drops unmerged observations in the second data frame.</li>
-<li><code>right_join()</code> drops unmerged observations in the first data frame.</li>
+<li><code>inner_join()</code> keeps only matched observations.</li>
+<li><code>left_join()</code> drops unmatched observations in the second data frame.</li>
+<li><code>right_join()</code> drops unmatched observations in the first data frame.</li>
 <li><code>full_join()</code> keeps all observations.</li>
-<li><code>anti_join()</code> keeps only unmerged observations in the first data frame.</li>
+<li><code>anti_join()</code> keeps only unmatched observations in the first data frame.</li>
 </ul>
 <p><code>ach_profile</code> has achievement and profile data for all districts and the state. <code>tvaas</code> has TVAAS data for all districts.</p>
 <p>Q: What happens if we <code>left_join()</code> the <code>ach_profile</code> and <code>tvaas</code> data frames?</p>
@@ -1746,11 +1758,11 @@ districts &lt;-<span class="st"> </span><span class="kw">filter</span>(ach_profi
 <h2>Combining data frames</h2>
 <p>There are five types of joins:</p>
 <ul>
-<li><code>inner_join()</code> keeps only merged observations.</li>
-<li><code>left_join()</code> drops unmerged observations in the second data frame.</li>
-<li><code>right_join()</code> drops unmerged observations in the first data frame.</li>
+<li><code>inner_join()</code> keeps only matched observations.</li>
+<li><code>left_join()</code> drops unmatched observations in the second data frame.</li>
+<li><code>right_join()</code> drops unmatched observations in the first data frame.</li>
 <li><code>full_join()</code> keeps all observations.</li>
-<li><code>anti_join()</code> keeps only unmerged observations in the first data frame.</li>
+<li><code>anti_join()</code> keeps only unmatched observations in the first data frame.</li>
 </ul>
 <p><code>ach_profile</code> has achievement and profile data for all districts and the state. <code>tvaas</code> has TVAAS data for all districts.</p>
 <p>Q: What happens if we <code>right_join()</code> the <code>ach_profile</code> and <code>tvaas</code> data frames?</p>
@@ -1759,11 +1771,11 @@ districts &lt;-<span class="st"> </span><span class="kw">filter</span>(ach_profi
 <h2>Combining data frames</h2>
 <p>There are five types of joins:</p>
 <ul>
-<li><code>inner_join()</code> keeps only merged observations.</li>
-<li><code>left_join()</code> drops unmerged observations in the second data frame.</li>
-<li><code>right_join()</code> drops unmerged observations in the first data frame.</li>
+<li><code>inner_join()</code> keeps only matched observations.</li>
+<li><code>left_join()</code> drops unmatched observations in the second data frame.</li>
+<li><code>right_join()</code> drops unmatched observations in the first data frame.</li>
 <li><code>full_join()</code> keeps all observations.</li>
-<li><code>anti_join()</code> keeps only unmerged observations in the first data frame.</li>
+<li><code>anti_join()</code> keeps only unmatched observations in the first data frame.</li>
 </ul>
 <p><code>ach_profile</code> has achievement and profile data for all districts and the state. <code>tvaas</code> has TVAAS data for all districts.</p>
 <p>Q: What happens if we <code>full_join()</code> the <code>ach_profile</code> and <code>tvaas</code> data frames?</p>
@@ -1772,11 +1784,11 @@ districts &lt;-<span class="st"> </span><span class="kw">filter</span>(ach_profi
 <h2>Combining data frames</h2>
 <p>There are five types of joins:</p>
 <ul>
-<li><code>inner_join()</code> keeps only merged observations.</li>
-<li><code>left_join()</code> drops unmerged observations in the second data frame.</li>
-<li><code>right_join()</code> drops unmerged observations in the first data frame.</li>
+<li><code>inner_join()</code> keeps only matched observations.</li>
+<li><code>left_join()</code> drops unmatched observations in the second data frame.</li>
+<li><code>right_join()</code> drops unmatched observations in the first data frame.</li>
 <li><code>full_join()</code> keeps all observations.</li>
-<li><code>anti_join()</code> keeps only unmerged observations in the first data frame.</li>
+<li><code>anti_join()</code> keeps only unmatched observations in the first data frame.</li>
 </ul>
 <p><code>ach_profile</code> has achievement and profile data for all districts and the state. <code>tvaas</code> has TVAAS data for all districts.</p>
 <p>Q: What happens if we <code>anti_join()</code> the <code>ach_profile</code> and <code>tvaas</code> data frames?</p>
@@ -1817,6 +1829,12 @@ districts &lt;-<span class="st"> </span><span class="kw">filter</span>(ach_profi
 <h2>Combining data frames</h2>
 <p>When joining on multiple key variables, specify them as a character vector:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">full_join</span>(df1, df2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;key_var1&quot;</span>, <span class="st">&quot;key_var2&quot;</span>))</code></pre></div>
+</section>
+<section id="combining-data-frames-14" class="slide level2">
+<h2>Combining data frames</h2>
+<p>Key variable names don’t have to match between the two data frame:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">full_join</span>(df1, df2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;x1&quot;</span> =<span class="st"> &quot;x2&quot;</span>, <span class="st">&quot;y1&quot;</span> =<span class="st"> &quot;y2&quot;</span>, <span class="st">&quot;z1&quot;</span> =<span class="st"> &quot;z2&quot;</span>))</code></pre></div>
+<p>This will join <code>df1</code> and <code>df2</code> by matching values of <code>x1</code> in <code>df1</code> with values of <code>x2</code> in <code>df2</code>, <code>y1</code> with <code>y2</code>, etc.</p>
 </section>
 <section id="exercise-10" class="slide level2">
 <h2>Exercise 10</h2>
